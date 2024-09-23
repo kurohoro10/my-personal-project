@@ -1,5 +1,10 @@
 <?php
-    require_once './includes/layouts/header.php';
+    // require_once __DIR__ . '/vendor/autoload.php';
+    require_once 'includes/bootstrap.inc.php';
+    require_once './includes/layouts/header.inc.php';
+
+    use App\Database;
+    use App\CrudController;
 ?>
     <main>
         <!-- Responsive Grid Design -->
@@ -73,13 +78,13 @@
 
     <?php
         // To include the popup in the page
-        require_once './includes/popups/popup.php';
+        require_once './includes/popups/popup.inc.php';
 
         // To include delete warning in the page
-        require_once './includes/popups/deleteWarning.popup.php';
+        require_once './includes/popups/deleteWarning.inc.php';
 
         // footer
-        require_once './includes/layouts/footer.php';
+        require_once './includes/layouts/footer.inc.php';
     ?>
 
     

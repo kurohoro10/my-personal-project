@@ -1,10 +1,12 @@
 <?php
 namespace App;
 
-use App;
-use Dotenv\Dotenv;
+require dirname(__DIR__, 2) . '/vendor/autoload.php';
+require_once 'ErrorHandler.class.php';
 use PDO;
-require __DIR__ . '/../../vendor/autoload.php';
+use Dotenv\Dotenv;
+use App\ErrorHandler;
+
 
 class Database {
     private $servername;
@@ -75,7 +77,7 @@ class Database {
         $this->password = $password;
     }
 
-    protected function createTable() {
+    public function createTable() {
         try {
             $sql = "CREATE TABLE IF NOT EXISTS users (
                 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -103,7 +105,7 @@ class Database {
         }
     }
 
-    protected function showData() {
+    public function showData() {
         try {
             $stmt = $this->conn->prepare("SELECT id, fullname, username, email, password FROM users");
             $stmt->execute();
@@ -124,7 +126,7 @@ class Database {
         }
     }
 
-    protected function insertDataToTable() {
+    public function insertDataToTable($fullname, $username, $email, $password) {
         try {
             $stmt = $this->conn->prepare("INSERT INTO users (fullname, username, email, password) VALUES (:fullname, :username, :email, :password)");
             $stmt->bindParam(':fullname', $fullname);
@@ -132,10 +134,10 @@ class Database {
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':password', $password);
 
-            $fullname = 'test';
-            $username = 'test';
-            $email = 'test@gmail.com';
-            $password = 'test';
+            // $fullname = 'adasd';
+            // $username = 'test';
+            // $email = 'test@gmail.com';
+            // $password = 'test';
             $stmt->execute();
 
             echo "New record created successfully";
@@ -153,7 +155,7 @@ class Database {
         
     }
 
-    protected function updateData() {
+    public function updateData() {
         try {
             $sql = "UPDATE users SET fullname = :fullname, username = :username, email = :email, password = :password WHERE id = :id";
             $stmt = $this->conn->prepare($sql);
@@ -187,7 +189,7 @@ class Database {
         
     }
 
-    protected function deleteData() {
+    public function deleteData() {
         try {
             $sql = "DELETE FROM users WHERE id = :id";
             $stmt = $this->conn->prepare($sql);
@@ -211,5 +213,3 @@ class Database {
     }
 
 }
-
-$test = new Database();

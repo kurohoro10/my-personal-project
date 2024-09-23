@@ -1,3 +1,7 @@
+<?php
+    
+?>
+
 <div id="popup-overlay">
         <div id="crud-popup">
             <div class="close-button">
@@ -8,7 +12,7 @@
                 <h6>Add user</h6>
             </div>
 
-            <form id="user-form">
+            <form id="user-form" method="POST" action="../../classes/App/CrudController.class.php">
                 <div>
                     <div class="one-rem-apart">
                         <div class="set-both-ends">
@@ -76,7 +80,7 @@
                         </div>
                     </div>
                     <div>
-                        <button class="primary-btn" id="submit">
+                        <button class="primary-btn" id="submit" type="submit">
                             Add User
                             <span><i class="fa-solid fa-user"></i></span>
                         </button>
