@@ -11,11 +11,14 @@
                     <p>Are you sure you want to delete this data?</p>
                 </div>
                 <div class="set-in-middle">
-                    <button class="warning-btn">
-                        Delete
-                        <span><i class="fa-solid fa-trash"></i></span>
-                    </button>
-                    <button class="primary-btn">
+                    <form action="/" method="POST" class="delete_user">
+                        <input type="hidden" name="delete_id" class="delete_id">
+                        <button class="warning-btn">
+                            Delete
+                            <span><i class="fa-solid fa-trash"></i></span>
+                        </button>
+                    </form>
+                    <button class="primary-btn cancel-btn">
                         Cancel
                     </button>
                 </div>

@@ -6,6 +6,18 @@
     use App\CrudController;
     $crudController = new CrudController();
     $data = $crudController->showData();
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['delete_id'])) {
+            $crudController->delete_data();
+        } 
+        elseif(isset($_POST['crud-id'])) {
+            $crudController->update_single_data();
+        }
+        else {
+            $crudController->createData();
+        }
+    }
 ?>
     <main>
         <!-- Responsive Grid Design -->
@@ -19,7 +31,10 @@
 
         <section id="crud-table" class="crud-table container">
             <div class="container table-nav">
-                <button class="primary-btn">
+                <div class="error_message">
+                    <p class="errMsg hide"></p>
+                </div>
+                <button class="primary-btn crud_add_user">
                     Add user 
                     <span><i class="fa-solid fa-user"></i></span>
                 </button>

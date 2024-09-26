@@ -30,23 +30,27 @@ class CrudController extends Crud {
     }
 
     public function createData() {
-        // if (isset($_POST['submit'])) {
-            $fullname = isset($_POST['fullname']) ? trim($_POST['fullname']) : null;
-            $username = isset($_POST['username']) ? trim($_POST['username']) : null;
-            $email = isset($_POST['email']) ? trim($_POST['email']) : null;
-            $password = isset($_POST['password']) ? trim($_POST['password']) : null;
-            $repassword = isset($_POST['repassword']) ? trim($_POST['repassword']) : null;
-        // }
+        $id = isset($_POST['crud-id']) ? trim($_POST['crud-id']) : null;
+        $fullname = isset($_POST['fullname']) ? trim($_POST['fullname']) : null;
+        $username = isset($_POST['username']) ? trim($_POST['username']) : null;
+        $email = isset($_POST['email']) ? trim($_POST['email']) : null;
+        $password = isset($_POST['password']) ? trim($_POST['password']) : null;
+        $repassword = isset($_POST['repassword']) ? trim($_POST['repassword']) : null;
 
         // Check if any required field is empty
         if (!$this->validate_input($fullname, $username, $email, $password, $repassword)) {
-            echo "Validation failed. Data not inserted.";
+            echo "<p class='errMsg'>Validation failed. Data not inserted.</p>";
             return;
         }
 
-        // If all validations pass, insert data into the database
-        parent::insertDataToTable( $fullname, $username, $email, $password );
-        echo "Data inserted successfully";
+        if (!$id) {
+            // If data has no id insert it as a new record to the database
+            // If all validations pass, insert data into the database
+            parent::insertDataToTable( $fullname, $username, $email, $password );
+            echo "<p class='successMsg'>Data inserted successfully</p>";
+            
+        }
+        
     }
 
     public function showData() {
@@ -64,7 +68,7 @@ class CrudController extends Crud {
         $id = isset($_POST['edit_button']) ? trim($_POST['edit_button']) : null;
 
         if (!$sanitize->sanitize_id_int($id)) {
-            echo "Validation failed. Data not inserted.";
+            echo "<p class='errMsg'>Validation failed. Data not inserted.</p>";
             return false;
         }
 
@@ -74,33 +78,38 @@ class CrudController extends Crud {
             return false;
         }
 
-        print_r($data);
+        // print_r($data);
         return $data;
     }
 
-    // public function update_data() {
-    //     $sanitize = new Sanitize();
-    //     $id = isset($_POST['edit_button']) ? trim($_POST['edit_button']) : null;
-    //     $fullname = isset($_POST['fullname']) ? trim($_POST['fullname']) : null;
-    //     $username = isset($_POST['username']) ? trim($_POST['username']) : null;
-    //     $email = isset($_POST['email']) ? trim($_POST['email']) : null;
-    //     $password = isset($_POST['password']) ? trim($_POST['password']) : null;
-    //     $repassword = isset($_POST['repassword']) ? trim($_POST['repassword']) : null;
+    public function update_single_data() {
+        $id = isset($_POST['crud-id']) ? trim($_POST['crud-id']) : null;
+        $fullname = isset($_POST['fullname']) ? trim($_POST['fullname']) : null;
+        $username = isset($_POST['username']) ? trim($_POST['username']) : null;
+        $email = isset($_POST['email']) ? trim($_POST['email']) : null;
+        $password = isset($_POST['password']) ? trim($_POST['password']) : null;
+        $repassword = isset($_POST['repassword']) ? trim($_POST['repassword']) : null;
+        $sanitize = new Sanitize();
 
-    //     // Check if any required field is empty
-    //     if (!$this->validate_input($fullname, $username, $email, $password, $repassword) && $sanitize->sanitize_id_int($id)) {
-    //         echo "Validation failed. Data not inserted.";
-    //         return;
-    //     }
-    // }
-}
-
-$crudController = new CrudController();
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['edit_button']) && !empty($_POST['edit_button'])) {
-        $crudController->show_single_data();
-    } else {
-        $crudController->createData();
+        if ($id !== null) {
+            $sanitize->sanitize_id_int($id);
+            // If data have an id look into the database and update the data instead
+            parent::updateData($id, $fullname, $username, $email, $password) ;
+            echo "<p class='successMsg'>Data updated successfully</p>";
+        }
     }
+
+    public function delete_data() {
+        $id = isset($_POST['delete_id']) ? trim($_POST['delete_id']) : null;
+        $sanitize = new Sanitize();
+        $sanitize->sanitize_id_int($id);
+
+        if (!$id) {
+            echo "<p class='errMsg'>Cannot find ID.</p>";
+        }
+
+        parent::deleteData($id);
+        echo "<p class='successMsg'>Data deleted successfully</p>";
+    }
+
 }

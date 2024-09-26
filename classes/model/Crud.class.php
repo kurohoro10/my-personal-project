@@ -150,13 +150,14 @@ class Crud extends Database {
 
     protected function updateData($id, $fullname, $username, $email, $password) {
         try {
+            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
             $sql = "UPDATE users SET fullname = :fullname, username = :username, email = :email, password = :password WHERE id = :id";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':id', $id);
             $stmt->bindParam(':fullname', $fullname);
             $stmt->bindParam(':username', $username);
             $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':password', $password);
+            $stmt->bindParam(':password', $hashedPassword);
 
             if(!$stmt->execute()) {
                 throw new Exception("Error updating data in the database!");
@@ -174,16 +175,14 @@ class Crud extends Database {
         
     }
 
-    protected function deleteData() {
+    protected function deleteData($id) {
         try {
             $sql = "DELETE FROM users WHERE id = :id";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':id', $id);
-            $id = 3;
 
             $stmt->execute();
 
-            echo "Data deleted successfully";
         } catch (\Throwable $t) {
             $this->errorHandler->customErrorHandler(
                 $t->getCode(),

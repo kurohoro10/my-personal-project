@@ -1,8 +1,3 @@
-<?php
-    // foreach($data as $row) :
-        // if (isset($_POST['edit_button']) && $_POST['edit_button'] == $row['id']) :
-?>
-
 <div id="popup-overlay">
         <div id="crud-popup">
             <div class="close-button">
@@ -13,12 +8,12 @@
                 <h6>Add user</h6>
             </div>
 
-            <form method="POST" action="index.php">
+            <form method="POST" action="/" class="user_form" name="user_form">
                 <div>
                     <div class="one-rem-apart">
                         <div class="set-both-ends">
                             <label for="crud-id">Crud Id:</label>
-                            <input type="text" name="crud-id" class="user_form_crud_id" disabled>
+                            <input type="text" name="crud-id" class="user_form_crud_id" readonly>
                         </div>
                     </div>
                     <div class="one-rem-apart">
@@ -72,7 +67,7 @@
                         <div class="set-both-ends repassword">
                             <label for="repassword">Re-type Password:</label>
                             <div class="password">
-                                <input type="password" name="`repassword`" placeholder="Re-type Password">
+                                <input type="password" name="repassword" placeholder="Re-type Password">
                                 <i class="fa-regular fa-eye-slash"></i>
                             </div>
                         </div>
@@ -93,7 +88,3 @@
             </form>
         </div>
     </div>
-<?php
-        // endif;
-    // endforeach;
-?>
