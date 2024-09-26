@@ -1,5 +1,6 @@
 <?php
-    
+    // foreach($data as $row) :
+        // if (isset($_POST['edit_button']) && $_POST['edit_button'] == $row['id']) :
 ?>
 
 <div id="popup-overlay">
@@ -12,18 +13,18 @@
                 <h6>Add user</h6>
             </div>
 
-            <form id="user-form" method="POST" action="../../classes/App/CrudController.class.php">
+            <form method="POST" action="index.php">
                 <div>
                     <div class="one-rem-apart">
                         <div class="set-both-ends">
                             <label for="crud-id">Crud Id:</label>
-                            <input type="text" id="crud-id" name="crud-id" disabled>
+                            <input type="text" name="crud-id" class="user_form_crud_id" disabled>
                         </div>
                     </div>
                     <div class="one-rem-apart">
                         <div class="set-both-ends">
                             <label for="fullname">Fullname:</label>
-                            <input type="text" id="fullname" name="fullname" placeholder="Fullname">
+                            <input type="text" name="fullname" placeholder="Fullname" class="user_form_fullname">
                         </div>
                         <div class="set-display-at-end">
                             <p class="errMsg hide"></p>
@@ -32,7 +33,7 @@
                     <div class="one-rem-apart">
                         <div class="set-both-ends">
                             <label for="username">Username:</label>
-                            <input type="text" id="username" name="username" placeholder="Username">
+                            <input type="text" name="username" placeholder="Username" class="user_form_username">
                         </div>
                         <div class="set-display-at-end">
                             <p class="errMsg hide"></p>
@@ -41,7 +42,7 @@
                     <div class="one-rem-apart">
                         <div class="set-both-ends">
                             <label for="email">Email:</label>
-                            <input type="email" id="email" name="email" placeholder="Email">
+                            <input type="email" name="email" placeholder="Email" class="user_form_email">
                         </div>
                         <div class="set-display-at-end">
                             <p class="errMsg hide"></p>
@@ -51,7 +52,7 @@
                         <div class="set-both-ends">
                             <label for="password">Password:</label>
                             <div class="password">
-                                <input type="password" id="password" name="password" placeholder="Password">
+                                <input type="password" name="password" placeholder="Password" class="user_form_password">
                                 <i class="fa-regular fa-eye-slash"></i>
                             </div>
                         </div>
@@ -71,7 +72,7 @@
                         <div class="set-both-ends repassword">
                             <label for="repassword">Re-type Password:</label>
                             <div class="password">
-                                <input type="password" id="repassword" name="repassword" placeholder="Re-type Password">
+                                <input type="password" name="`repassword`" placeholder="Re-type Password">
                                 <i class="fa-regular fa-eye-slash"></i>
                             </div>
                         </div>
@@ -80,7 +81,7 @@
                         </div>
                     </div>
                     <div>
-                        <button class="primary-btn" id="submit" type="submit">
+                        <button class="primary-btn" name="submit" type="submit">
                             Add User
                             <span><i class="fa-solid fa-user"></i></span>
                         </button>
@@ -92,3 +93,7 @@
             </form>
         </div>
     </div>
+<?php
+        // endif;
+    // endforeach;
+?>

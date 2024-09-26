@@ -255,7 +255,7 @@ form.crud-table-form {
 }
 
 section#crud-table table tbody tr td button.crud-table-edit:hover {
-    color: var(--green);
+    color: var(--success);
 }
 
 section#crud-table table tbody tr td button.crud-table-delete:hover {

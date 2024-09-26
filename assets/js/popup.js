@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     // For handling opening and closing the popup
         const addUser = document.querySelector('div.table-nav button');
-        const editUser = document.querySelector('div.crud-table-form button.crud-table-edit');
+        const editUsers = document.querySelectorAll('div.crud-table-form button.crud-table-edit');
         const popup = document.querySelector('#popup-overlay');
         const closeBtns = document.querySelectorAll('.close-button span');
         const deletePopup = document.querySelector('div#delete-overlay');
@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Open popup when the buttons are clicked
         addUser?.addEventListener('click', () => openPopup(popup));
-        editUser?.addEventListener('click', () => openPopup(popup));
         deleteBtn?.addEventListener('click', () => openPopup(deletePopup));
 
         // Close popup when clicking outside the popup or on the close button
@@ -47,4 +46,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         
     // End handling opening and closing the popup
+
+    // Get data of single row
+    editUsers?.forEach(editUser => {
+        editUser.addEventListener('click', () =>{
+            openPopup(popup)
+        });
+    });
 });

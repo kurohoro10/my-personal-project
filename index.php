@@ -1,10 +1,11 @@
 <?php
-    // require_once __DIR__ . '/vendor/autoload.php';
-    require_once 'includes/bootstrap.inc.php';
-    require_once './includes/layouts/header.inc.php';
+    require_once __DIR__ . '/vendor/autoload.php';
+    require_once __DIR__ . '/includes/bootstrap.inc.php';
+    require_once __DIR__ . '/includes/layouts/header.inc.php';
 
-    use App\Database;
     use App\CrudController;
+    $crudController = new CrudController();
+    $data = $crudController->showData();
 ?>
     <main>
         <!-- Responsive Grid Design -->
@@ -35,17 +36,34 @@
                     </tr>
                 </thead>
                 <tbody>
+
+                    <?php 
+                        if (empty($data)) :   
+                    ?>
+
                     <tr>
-                        <td>1</td>
-                        <td>Test</td>
-                        <td>uname</td>
-                        <td>test@mail.com</td>
-                        <td>test</td>
+                        <td colspan ="6">No data found!</td>
+                    </tr>
+
+                    <?php
+                        else:
+                            foreach($data as $row) :
+                    ?>
+
+                    <tr>
+                        <td class="table_id"><?= htmlspecialchars($row['id']) ?></td>
+                        <td class="table_fullname"><?= htmlspecialchars($row['fullname']) ?></td>
+                        <td class="table_username"><?= htmlspecialchars($row['username']) ?></td>
+                        <td class="table_email"><?= htmlspecialchars($row['email']) ?></td>
+                        <td class="table_password"><?= htmlspecialchars($row['password']) ?></td>
                         <td>
                             <div class="crud-table-form">
-                                <button class="crud-table-edit">
-                                    <span><i class="fa-solid fa-pen-to-square"></i></span>
-                                </button>
+                                <!-- <form method="POST" action=""> -->
+                                    <!-- <input type="hidden" name="edit_button" value="<?= htmlspecialchars($row['id']) ?>"> -->
+                                    <button class="crud-table-edit" type="submit" name="edit_button" value="<?= htmlspecialchars($row['id']) ?>">
+                                        <span><i class="fa-solid fa-pen-to-square"></i></span>
+                                    </button>
+                                <!-- </form> -->
 
                                 <button class="crud-table-delete">
                                     <span><i class="fa-solid fa-trash"></i></span>
@@ -53,24 +71,12 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Test</td>
-                        <td>uname</td>
-                        <td>test@mail.com</td>
-                        <td>test</td>
-                        <td>
-                            <form class="crud-table-form">
-                                <button class="crud-table-edit">
-                                    <span><i class="fa-solid fa-pen-to-square"></i></span>
-                                </button>
 
-                                <button class="crud-table-delete">
-                                    <span><i class="fa-solid fa-trash"></i></span>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
+                    <?php
+                            endforeach;
+                        endif;
+                    ?>
+
                 </tbody>
             </table>
         </section>
