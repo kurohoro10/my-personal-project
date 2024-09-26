@@ -39,7 +39,7 @@ class CrudController extends Crud {
 
         // Check if any required field is empty
         if (!$this->validate_input($fullname, $username, $email, $password, $repassword)) {
-            echo "<p class='errMsg'>Validation failed. Data not inserted.</p>";
+            echo "<p class='errMsg notification'>Validation failed. Data not inserted.</p>";
             return;
         }
 
@@ -47,7 +47,7 @@ class CrudController extends Crud {
             // If data has no id insert it as a new record to the database
             // If all validations pass, insert data into the database
             parent::insertDataToTable( $fullname, $username, $email, $password );
-            echo "<p class='successMsg'>Data inserted successfully</p>";
+            echo "<p class='successMsg notification'>Data inserted successfully</p>";
             
         }
         
@@ -68,7 +68,7 @@ class CrudController extends Crud {
         $id = isset($_POST['edit_button']) ? trim($_POST['edit_button']) : null;
 
         if (!$sanitize->sanitize_id_int($id)) {
-            echo "<p class='errMsg'>Validation failed. Data not inserted.</p>";
+            echo "<p class='errMsg notification'>Validation failed. Data not inserted.</p>";
             return false;
         }
 
@@ -95,7 +95,7 @@ class CrudController extends Crud {
             $sanitize->sanitize_id_int($id);
             // If data have an id look into the database and update the data instead
             parent::updateData($id, $fullname, $username, $email, $password) ;
-            echo "<p class='successMsg'>Data updated successfully</p>";
+            echo "<p class='successMsg notification'>Data updated successfully</p>";
         }
     }
 
@@ -105,11 +105,11 @@ class CrudController extends Crud {
         $sanitize->sanitize_id_int($id);
 
         if (!$id) {
-            echo "<p class='errMsg'>Cannot find ID.</p>";
+            echo "<p class='errMsg notification'>Cannot find ID.</p>";
         }
 
         parent::deleteData($id);
-        echo "<p class='successMsg'>Data deleted successfully</p>";
+        echo "<p class='successMsg notification'>Data deleted successfully</p>";
     }
 
 }
